@@ -1,0 +1,25 @@
+{
+    "appName" : "Expenses_app",
+    "results" : [
+        {
+            "category" : "Gasolina",
+            "icon" : "57999",
+            "color": "#31b554"
+        },
+        {
+            "category" : "Farmacia",
+            "icon" : "58001",
+            "color": "#e02f1b"
+        },
+        {
+            "category" : "Restaurante",
+            "icon" : "57995",
+            "color": "#bb4bf2"
+        },
+        {
+            "category" : "Supermercado",
+            "icon" : "58000",
+            "color": "#4a5ef7"
+        }
+    ]
+}
