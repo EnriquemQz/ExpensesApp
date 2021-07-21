@@ -185,7 +185,7 @@ class _AddNewCategoryState extends State<AddNewCategory> {
               },
             ),
             ListTile(
-              trailing: Icon(fModel.icon.toIcon(), size:35.0),
+              trailing: Icon(fModel.icon.toIcons(), size:35.0),
               title: Container(
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
@@ -285,7 +285,7 @@ class _AddNewCategoryState extends State<AddNewCategory> {
   }
 
   _selectIcon(context){
-    final iconList = IconPicker().colorSelect;
+    final iconList = IconPicker().iconMap;
 
     void _changedIcon(String icon){
       setState(() {
@@ -304,14 +304,16 @@ class _AddNewCategoryState extends State<AddNewCategory> {
             ),
             itemCount: iconList.length,
             itemBuilder: (_,i){
+              var key = iconList.keys.elementAt(i);
               return GestureDetector(
                 child: Icon(
-                  iconList[i].toIcon(),
+                  key.toIcons(),
                   size: 30.0,
                   color: Colors.white,
                 ),
                 onTap: (){
-                  _changedIcon(iconList[i]);
+                  _changedIcon(key);
+                  print(key);
                   Navigator.pop(context);
                 },
               );

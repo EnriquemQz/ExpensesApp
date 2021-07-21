@@ -26,7 +26,7 @@ class _AdminCategoryState extends State<AdminCategory> {
         var item = features[i];
         return ListTile(
           leading: Icon(
-            item.icon.toIcon(),
+            item.icon.toIcons(),
             size: 35.0,
             color: item.color.toColor()
           ),

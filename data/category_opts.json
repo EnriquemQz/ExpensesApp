@@ -3,22 +3,22 @@
     "results" : [
         {
             "category" : "Gasolina",
-            "icon" : "57999",
+            "icon" : "local_gas_station_outlined",
             "color": "#31b554"
         },
         {
             "category" : "Farmacia",
-            "icon" : "58001",
+            "icon" : "local_hospital_outlined",
             "color": "#e02f1b"
         },
         {
             "category" : "Restaurante",
-            "icon" : "57995",
+            "icon" : "local_dining_outlined",
             "color": "#bb4bf2"
         },
         {
             "category" : "Supermercado",
-            "icon" : "58000",
+            "icon" : "shopping_cart_outlined",
             "color": "#4a5ef7"
         }
     ]

@@ -40,26 +40,31 @@ class BalanceFolderTab extends StatelessWidget {
               ],
             ),
             VerticalDivider(thickness: 2, width: 20.0, color: Colors.black38),
-            Column(
-              children: [
-                Text(
-                  'Gastos',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    letterSpacing: 1.5,
-                    fontWeight: FontWeight.bold
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, 'expenses_details');
+              },
+              child: Column(
+                children: [
+                  Text(
+                    'Gastos',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  '\$ ${op.getSumOfExpenses(expenses)}',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.grey,
-                    letterSpacing: 1.5
-                  ),
-                )
-              ],
+                  SizedBox(height: 8.0),
+                  Text(
+                    '\$ ${op.getSumOfExpenses(expenses)}',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.grey,
+                      letterSpacing: 1.5
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),

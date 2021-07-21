@@ -1,11 +1,19 @@
 
+import 'package:expenses_app/utils/icon_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-extension IconDataExtension on String{
-  toIcon(){
-    var hexIcon = this;
-    return IconData(int.parse(hexIcon), fontFamily: 'MaterialIcons');
+// extension IconDataExtension on String{
+//   toIcon(){
+//     var hexIcon = this;
+//     return IconData(int.parse(hexIcon), fontFamily: 'MaterialIcons');
+//   }
+// }
+
+extension IconDatas on String {
+  toIcons(){
+    var iconData = this;
+    return IconPicker().iconMap[iconData];
   }
 }
 

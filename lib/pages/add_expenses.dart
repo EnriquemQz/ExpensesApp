@@ -43,8 +43,8 @@ class _FormOfExpensesState extends State<FormOfExpenses> {
   @override
   Widget build(BuildContext context) {
     CombinedModel _cModel = widget.cModel;
-
     Size size = MediaQuery.of(context).size;
+    
     return ListView(
       physics: NeverScrollableScrollPhysics(),
       children: [

@@ -14,7 +14,7 @@ class CombinedModel {
         this.category = 'Selecciona Categoría',
         this.color    = '',
         this.icon     = '',  
-        this.comment  = '',
+        this.comment  = 'Sin Comentarios 😶',
         this.expense  = 0.00
     });
 

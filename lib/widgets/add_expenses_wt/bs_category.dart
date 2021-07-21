@@ -78,6 +78,8 @@ class _BottomSheetCategoryState extends State<BottomSheetCategory> {
       });
     }
 
+    features.sort((a,b) => a.category.compareTo(b.category));
+
     var widgets = <Widget>[
       ListView.builder(
         shrinkWrap: true,
@@ -85,7 +87,7 @@ class _BottomSheetCategoryState extends State<BottomSheetCategory> {
         itemCount: features.length,
         itemBuilder: (_, i)=> ListTile(
           leading: Icon(
-            features[i].icon.toIcon(),
+            features[i].icon.toIcons(),
             size: 35.0,
             color: features[i].color.toColor(),
           ),

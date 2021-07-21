@@ -16,8 +16,7 @@ class SaveButton extends StatelessWidget {
       onTap: (){
         if(cModel.expense != 0.00 && cModel.link != null ){
 
-          if(cModel.comment == '') return cModel.comment = 'Sin comentarios 🙄';
-
+          // if(cModel.comment == '') return cModel.comment = 'Sin comentarios 🙄';
           exProvider.addNewExpenses(
             cModel.link, 
             cModel.year, 

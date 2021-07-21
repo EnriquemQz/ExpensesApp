@@ -9,7 +9,7 @@ class FeatureModel {
     FeatureModel({
         this.id,
         this.category = '',
-        this.icon = '57664',
+        this.icon = 'local_gas_station_outlined',
         this.color = '#4287f5',
     });
 

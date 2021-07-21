@@ -20,3 +20,7 @@ getSumOfExpenses(List<ExpensesModel> expenses){
   _expenses = expenses.map((e) => e.expense).fold(0.0, (a, b) => a + b);
   return _expenses.toStringAsFixed(2).replaceAllMapped(reg, mathFunc);
 }
+
+getCleanData(double data){
+  return data.toStringAsFixed(2).replaceAllMapped(reg, mathFunc);
+}

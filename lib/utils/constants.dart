@@ -42,4 +42,11 @@ class Constants {
       top: Radius.circular(25.0)
     )
   );
+
+  static BoxDecoration flayer = BoxDecoration(
+    color: Colors.grey[850],
+    borderRadius: BorderRadius.all(
+      Radius.circular(25.0)
+    )
+  );
 }
