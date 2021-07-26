@@ -51,4 +51,18 @@ class DBExpensesProvider {
     return eList;
   }
 
+  Future<int> updateExpenses(ExpensesModel update) async {
+    final db = await database;
+    final res = db.update('Expenses', update.toJson(), 
+      where: 'id = ?', whereArgs: [update.id]);
+    return res;
+  }
+
+  Future<int> deleteExpense(int id) async {
+    final db = await database;
+    final res = db.delete('Expenses', where: 'id = ?', whereArgs: [id]);
+    return res;
+  }
+  
+
 }

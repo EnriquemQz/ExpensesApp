@@ -45,6 +45,9 @@ class _CommentBoxState extends State<CommentBox> {
             ),
             keyboardType: TextInputType.text,
             onChanged: (text){
+              if(text == ''){
+                text = 'Sin Comentarios';
+              }
               widget.cModel.comment = text;
             },
           ),

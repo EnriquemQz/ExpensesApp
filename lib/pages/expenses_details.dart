@@ -1,16 +1,18 @@
+import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/painting.dart';
-// import 'package:flutter/rendering.dart';
 
 import 'package:expenses_app/models/combined_model.dart';
 import 'package:expenses_app/utils/constants.dart';
 import 'package:expenses_app/providers/expenses_provider.dart';
 import 'package:expenses_app/utils/math_operations.dart' as op;
 import 'package:expenses_app/utils/utils.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 
 class ExpensesDetails extends StatefulWidget {
   const ExpensesDetails({Key key}) : super(key: key);
@@ -83,7 +85,7 @@ class _ExpensesDetailsState extends State<ExpensesDetails> {
           _sliverAppBar(),
           SliverList(delegate: SliverChildListDelegate(
             [
-              BodyDetails(cList: cList, totalExp: totalExp)
+              BodyExpensesDetails(cList: cList, totalExp: totalExp)
             ]
           ))
         ],
@@ -111,16 +113,24 @@ class _ExpensesDetailsState extends State<ExpensesDetails> {
   }
 }
 
-class BodyDetails extends StatelessWidget {
+class BodyExpensesDetails extends StatefulWidget {
   final List<CombinedModel> cList;
   final double totalExp;
 
-  const BodyDetails({Key key, this.cList, this.totalExp}) : super(key: key);
+  const BodyExpensesDetails({Key key, this.cList, this.totalExp}) : super(key: key);
 
   @override
+  State<BodyExpensesDetails> createState() => _BodyExpensesDetailsState();
+}
+
+class _BodyExpensesDetailsState extends State<BodyExpensesDetails> {
+  @override
   Widget build(BuildContext context) {
+    final exProvider = Provider.of<ExpensesProvider>(context, listen: false);
+    final uiProvider = Provider.of<UiProvider>(context, listen: false);
+
     Size size = MediaQuery.of(context).size;
-    cList.sort((a,b) => b.day.compareTo(a.day));
+    widget.cList.sort((a,b) => b.day.compareTo(a.day));
 
     return Padding(
       padding: const EdgeInsets.only(top: 18.0),
@@ -130,50 +140,89 @@ class BodyDetails extends StatelessWidget {
         child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: cList.length,
+          itemCount: widget.cList.length,
           itemBuilder: (_, i) {
-            var item = cList[i];
-            return ListTile(
-              leading: Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  Icon(Icons.calendar_today, size: 40.0),
-                  Positioned(
-                    top: 16.0,
-                    child: Text(item.day.toString()),
-                  )
-                ],
-              ),
-              title: Row(
-                children: [
-                  Text(item.category),
-                  SizedBox(width: 8.0),
-                  Icon(
-                    item.icon.toIcons(),
-                    color: item.color.toColor(),
-                    size: 18.0
-                  )
-                ],
-              ),
-              subtitle: Text(item.comment),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    '\$ ${op.getCleanData(item.expense)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold
+            var item = widget.cList[i];
+
+            if(item.comment == ''){
+              item.comment = 'Sin Comentarios';
+            }
+
+            return Slidable(
+              actionPane: SlidableDrawerActionPane(),
+              actionExtentRatio: 0.18,
+              child: ListTile(
+                leading: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    Icon(Icons.calendar_today, size: 40.0),
+                    Positioned(
+                      top: 16.0,
+                      child: Text(item.day.toString()),
+                    )
+                  ],
+                ),
+                title: Row(
+                  children: [
+                    Text(item.category),
+                    SizedBox(width: 8.0),
+                    Icon(
+                      item.icon.toIcons(),
+                      color: item.color.toColor(),
+                      size: 18.0
+                    )
+                  ],
+                ),
+                subtitle: Text(item.comment),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '\$ ${op.getCleanData(item.expense)}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
-                  ),
-                  Text(
-                    '${(100 * item.expense / totalExp).toStringAsFixed(2)}%',
-                    style: TextStyle(
-                      fontSize: 11.0
-                    ),
-                  )
-                ],
+                    Text(
+                      '${(100 * item.expense / widget.totalExp).toStringAsFixed(2)}%',
+                      style: TextStyle(
+                        fontSize: 11.0
+                      ),
+                    )
+                  ],
+                ),
               ),
+              secondaryActions: [
+                IconSlideAction(
+                  caption: 'Editar',
+                  foregroundColor: Colors.blue,
+                  color: Colors.transparent,
+                  iconWidget: Icon(Icons.edit, color: Colors.green),
+                  onTap: (){
+                    Navigator.pushNamed(context, 'add_expenses', arguments: item);
+                  },
+                ),
+                IconSlideAction(
+                  caption: 'Eliminar',
+                  foregroundColor: Colors.red,
+                  color: Colors.transparent,
+                  iconWidget: Icon(Icons.delete_forever_outlined, color: Colors.red),
+                  onTap: (){
+                    setState(() {
+                      widget.cList.removeAt(i);
+                    });
+                    Fluttertoast.showToast(
+                      msg: 'Gasto Eliminado',
+                      toastLength: Toast.LENGTH_SHORT,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white
+                    );
+                    exProvider.deleteExpense(item.id);
+                    uiProvider.selectedMenu = 0;
+                  },
+                ),
+              ]
             );
           }
         ),

@@ -112,6 +112,10 @@ class CategoriesFlayer extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
+                            onTap: (){
+                              Navigator.pushNamed(
+                                context, 'categories_details', arguments: item);
+                            },
                             // trailing: Text('\$${item.expense.toString()}'),
                           );
                         }

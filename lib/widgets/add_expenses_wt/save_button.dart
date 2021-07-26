@@ -1,23 +1,34 @@
 import 'package:expenses_app/models/combined_model.dart';
 import 'package:expenses_app/providers/expenses_provider.dart';
+import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class SaveButton extends StatelessWidget {
   final CombinedModel cModel;
-  const SaveButton({Key key, @required this.cModel}) : super(key: key);
+  final bool hasData;
+  const SaveButton({Key key, @required this.cModel, this.hasData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final exProvider = Provider.of<ExpensesProvider>(context, listen: false);
+    final uiProvider = Provider.of<UiProvider>(context, listen: false);
 
     return GestureDetector(
       onTap: (){
         if(cModel.expense != 0.00 && cModel.link != null ){
-
-          // if(cModel.comment == '') return cModel.comment = 'Sin comentarios 🙄';
-          exProvider.addNewExpenses(
+          (hasData)
+          ? exProvider.updateExpenses(
+            cModel.id, 
+            cModel.link, 
+            cModel.year,
+            cModel.month, 
+            cModel.day, 
+            cModel.comment, 
+            cModel.expense
+          )
+          : exProvider.addNewExpenses(
             cModel.link, 
             cModel.year, 
             cModel.month, 
@@ -26,12 +37,23 @@ class SaveButton extends StatelessWidget {
             cModel.expense
           );
 
-          Fluttertoast.showToast(
-            msg: 'Gasto Agregado',
-            toastLength: Toast.LENGTH_SHORT,
-            backgroundColor: Colors.green,
-            textColor: Colors.white
-          );
+          if(hasData == true){
+            Fluttertoast.showToast(
+              msg: 'Tu Gasto se editó correctamete',
+              toastLength: Toast.LENGTH_SHORT,
+              backgroundColor: Colors.green,
+              textColor: Colors.white
+            );
+            uiProvider.selectedMenu = 0;
+          } else{
+            Fluttertoast.showToast(
+              msg: 'Gasto Agregado',
+              toastLength: Toast.LENGTH_SHORT,
+              backgroundColor: Colors.green,
+              textColor: Colors.white
+            );
+          }
+          Navigator.pop(context);
         } else if(cModel.expense == 0.0){
           Fluttertoast.showToast(
             msg: 'Necesitas agregar un gasto',

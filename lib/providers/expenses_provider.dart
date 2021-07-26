@@ -77,4 +77,26 @@ class ExpensesProvider extends ChangeNotifier {
     );
     await DBFeatureProvider.db.updateFeatures(updateFeatures);
   }
+
+  updateExpenses(int id, int link, int year, int month, int day, String comment,
+    var expense) async {
+      final editExp = ExpensesModel(
+        id: id,
+        link: link,
+        year: year,
+        month: month,
+        day: day,
+        comment: comment,
+        expense: expense,
+      );
+      await DBExpensesProvider.db.updateExpenses(editExp);
+    }
+
+  // Delete
+
+  deleteExpense(int id) async {
+    await DBExpensesProvider.db.deleteExpense(id);
+    notifyListeners();
+  }
+
 }

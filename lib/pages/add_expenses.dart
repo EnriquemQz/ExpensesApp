@@ -17,22 +17,32 @@ class AddExpenses extends StatefulWidget {
 
 class _AddExpensesState extends State<AddExpenses> {
   CombinedModel _cModel = new CombinedModel();
+  bool hasData = false;
 
   @override
   Widget build(BuildContext context) {
+
+    final CombinedModel modelData = ModalRoute.of(context).settings.arguments;
+
+    if(modelData != null){
+      _cModel = modelData;
+      hasData = true;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agregar Gastos'),
+        title: (hasData)? Text('Editar Gasto') : Text('Agregar Gastos'),
         centerTitle : false,
       ),
-      body: FormOfExpenses(cModel: _cModel),
+      body: FormOfExpenses(cModel: _cModel, hasData: hasData),
     );
   }
 }
 
 class FormOfExpenses extends StatefulWidget {
   final CombinedModel cModel;
-  FormOfExpenses({this.cModel});
+  final bool hasData;
+  FormOfExpenses({this.cModel, this.hasData});
 
   @override
   _FormOfExpensesState createState() => _FormOfExpensesState();
@@ -44,7 +54,11 @@ class _FormOfExpensesState extends State<FormOfExpenses> {
   Widget build(BuildContext context) {
     CombinedModel _cModel = widget.cModel;
     Size size = MediaQuery.of(context).size;
-    
+
+    if(_cModel.comment == 'Sin Comentarios'){
+      _cModel.comment = '';
+    }
+
     return ListView(
       physics: NeverScrollableScrollPhysics(),
       children: [
@@ -71,7 +85,7 @@ class _FormOfExpensesState extends State<FormOfExpenses> {
               Expanded(
                 flex: 3, 
                 child: 
-                SaveButton(cModel: _cModel)
+                SaveButton(cModel: _cModel, hasData: widget.hasData)
               ),
               
             ],
