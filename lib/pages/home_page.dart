@@ -35,6 +35,7 @@ class _HomePage extends StatelessWidget {
         exProvider.getByDate(currentMonth, currentYear);
         return BalancePage();
       case 1:
+      exProvider.getByDate(currentMonth, currentYear);
         return ChartsPage();
       case 2:
         return SettingPage();

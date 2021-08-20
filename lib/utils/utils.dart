@@ -2,6 +2,7 @@
 import 'package:expenses_app/utils/icon_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:sqflite/utils/utils.dart';
 
 // extension IconDataExtension on String{
 //   toIcon(){
@@ -9,6 +10,16 @@ import 'package:flutter/cupertino.dart';
 //     return IconData(int.parse(hexIcon), fontFamily: 'MaterialIcons');
 //   }
 // }
+int daysInMonth(int month) {
+  var now = DateTime.now();
+
+  var lastDayMonth = (month < 12)
+    ? new DateTime(now.year, month + 1, 0)
+    : new DateTime(now.year + 1, 1, 0);
+    
+  return lastDayMonth.day;
+}
+
 
 extension IconDatas on String {
   toIcons(){
