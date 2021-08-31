@@ -262,6 +262,8 @@ class _AddNewCategoryState extends State<AddNewCategory> {
                 onColorChange: (Color color){
                   var hexColor = '#${color.value.toRadixString(16).substring(2,8)}';
                   _changeColor(hexColor);
+                  // print(hexColor);
+                  // print(color);
                 },
               ),
               GestureDetector(

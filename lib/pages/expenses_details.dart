@@ -2,6 +2,7 @@ import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -129,13 +130,13 @@ class _BodyExpensesDetailsState extends State<BodyExpensesDetails> {
     final exProvider = Provider.of<ExpensesProvider>(context, listen: false);
     final uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     widget.cList.sort((a,b) => b.day.compareTo(a.day));
-
+    
     return Padding(
       padding: const EdgeInsets.only(top: 18.0),
       child: Container(
-        height: size.height,
+        // height: size.height,
         decoration: Constants.ftBoxDecoration,
         child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),

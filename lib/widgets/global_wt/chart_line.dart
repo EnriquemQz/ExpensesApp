@@ -91,7 +91,7 @@ class ChartLine extends StatelessWidget {
 
     return Container(
       child: charts.LineChart(
-        series2,
+        series,
         animate: true,
         defaultRenderer: charts.LineRendererConfig(
           includePoints: true,
