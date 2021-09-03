@@ -1,8 +1,9 @@
-import 'package:expenses_app/widgets/global_wt/chart_pie.dart';
+
+import 'package:expenses_app/widgets/global_wt/chart_scatterplot.dart';
 import 'package:flutter/material.dart';
+import 'package:expenses_app/widgets/global_wt/chart_pie.dart';
 
 import 'package:expenses_app/utils/constants.dart';
-import 'package:expenses_app/widgets/global_wt/chart_line.dart';
 
 class ChartsPage extends StatelessWidget {
 
@@ -36,7 +37,7 @@ class ChartsPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(child: ChartPie()),
+              Expanded(child: ChartScatterPlot()),
               // Container(child: Text('Hola Charts'))
             ],
           ),

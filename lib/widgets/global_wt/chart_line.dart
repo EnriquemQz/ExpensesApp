@@ -9,7 +9,9 @@ import 'package:expenses_app/providers/expenses_provider.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:expenses_app/utils/utils.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+// ignore: implementation_imports
 import 'package:charts_flutter/src/text_element.dart' as elements;
+// ignore: implementation_imports
 import 'package:charts_flutter/src/text_style.dart' as styless;
 
 
@@ -73,21 +75,21 @@ class ChartLine extends StatelessWidget {
     });
     print(perDayList);
 
-    List<charts.Series<double, int>> series2 = [
-      charts.Series<double, int>(
-        id: 'Expenses',
-        domainFn:  (v , i) => i,
-        measureFn: (v , i) => v,
-        seriesColor: charts.ColorUtil.fromDartColor(Colors.green[400]),
-        radiusPxFn: (v, i){
-          if (v == 0){
-            return 0;
-          }
-          return 3;
-        },
-        data: perDayList
-      )
-    ];
+    // List<charts.Series<double, int>> series2 = [
+    //   charts.Series<double, int>(
+    //     id: 'Expenses',
+    //     domainFn:  (v , i) => i,
+    //     measureFn: (v , i) => v,
+    //     seriesColor: charts.ColorUtil.fromDartColor(Colors.green[400]),
+    //     radiusPxFn: (v, i){
+    //       if (v == 0){
+    //         return 0;
+    //       }
+    //       return 3;
+    //     },
+    //     data: perDayList
+    //   )
+    // ];
 
     return Container(
       child: charts.LineChart(
