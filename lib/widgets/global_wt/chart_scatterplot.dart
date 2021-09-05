@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:expenses_app/models/combined_model.dart';
 import 'package:expenses_app/providers/expenses_provider.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
-import 'package:expenses_app/providers/ui_provider.dart';
 
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:expenses_app/utils/utils.dart';

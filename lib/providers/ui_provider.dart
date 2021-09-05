@@ -6,6 +6,7 @@ class UiProvider extends ChangeNotifier {
 
   int _selectedMenu = 0;
   int _selectedMonth = DateTime.now().month - 1;
+  String _selectedChart = 'Gráfico Lineal';
 
   int get selectedMenu {
     return this._selectedMenu;
@@ -25,4 +26,12 @@ class UiProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String get selectedChart {
+    return this._selectedChart;
+  }
+
+  set selectedChart(String i){
+    this._selectedChart = i;
+    notifyListeners();
+  }
 }

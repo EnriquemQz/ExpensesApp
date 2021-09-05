@@ -141,7 +141,7 @@ class _BottomSheetCategoryState extends State<BottomSheetCategory> {
           height: size.height / 1.3,
           child: ListView(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            // physics: NeverScrollableScrollPhysics(),
             children: widgets,
           ),
         );
