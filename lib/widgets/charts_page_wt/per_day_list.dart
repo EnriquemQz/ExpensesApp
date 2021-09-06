@@ -46,7 +46,9 @@ class PerDayList extends StatelessWidget {
       itemBuilder: (_, i){
         var item = _perDayList[i];
         return GestureDetector(
-          onTap: (){},
+          onTap: (){
+            Navigator.pushNamed(context, 'expenses_details', arguments: item.day);
+          },
           child: Container(
             decoration: BoxDecoration(
               color: Colors.grey[900],

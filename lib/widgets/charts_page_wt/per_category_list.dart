@@ -46,6 +46,13 @@ class PerCategoryList extends StatelessWidget {
       itemBuilder: (_,i){
         var item = perCategoryList[i];
         return ListTile(
+          onTap: (){
+            Navigator.pushNamed(
+              context, 
+              'categories_details',
+               arguments: item
+            );
+          },
           leading: Icon(
             item.icon.toIcons(),
             color: item.color.toColor(),

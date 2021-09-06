@@ -25,7 +25,7 @@ class ExpensesDetails extends StatefulWidget {
 class _ExpensesDetailsState extends State<ExpensesDetails> {
   ScrollController _controller;
   String title = 'Desglose de Gastos';
-  String titleExp;
+  double titleExp;
 
   @override
   void initState() { 
@@ -40,14 +40,22 @@ class _ExpensesDetailsState extends State<ExpensesDetails> {
 
   @override
   Widget build(BuildContext context) {
+    int dataDay = ModalRoute.of(context).settings.arguments;
     final exProvider = Provider.of<ExpensesProvider>(context);
     final expenses = exProvider.expenses;
     final features = exProvider.features;
     List<CombinedModel> cList = [];
+    bool hasDay = false;
+
+    if(dataDay != null){
+      hasDay = true;
+    } else {
+      hasDay = false;
+    }
 
     expenses.forEach((x) { 
       features.forEach((y) { 
-        if(x.link == y.id) {
+        if((hasDay)? x.link == y.id && x.day == dataDay : x.link == y.id) {
           cList.add(CombinedModel(
             category: y.category,
             color: y.color,
@@ -64,8 +72,8 @@ class _ExpensesDetailsState extends State<ExpensesDetails> {
       });
     });
 
-    titleExp = op.getSumOfExpenses(expenses);
-    var totalExp = expenses.map((e) => e.expense).fold(0.0, (a, b) => a + b);
+    titleExp = cList.map((e) => e.expense).fold(0.0, (a, b) => a + b);
+    // var totalExp = expenses.map((e) => e.expense).fold(0.0, (a, b) => a + b);
 
     _controller.addListener((){
       if(_isCollapsed){
@@ -86,7 +94,7 @@ class _ExpensesDetailsState extends State<ExpensesDetails> {
           _sliverAppBar(),
           SliverList(delegate: SliverChildListDelegate(
             [
-              BodyExpensesDetails(cList: cList, totalExp: totalExp)
+              BodyExpensesDetails(cList: cList, totalExp: titleExp)
             ]
           ))
         ],
@@ -103,7 +111,7 @@ class _ExpensesDetailsState extends State<ExpensesDetails> {
       title: Text(title),
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
-        title: Text('\$ $titleExp'),
+        title: Text('\$ ${op.getCleanData(titleExp)}'),
         centerTitle: true,
         background: Align(
           alignment: Alignment.bottomCenter,
