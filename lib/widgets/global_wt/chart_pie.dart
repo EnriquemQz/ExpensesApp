@@ -9,7 +9,13 @@ import 'package:expenses_app/utils/utils.dart';
 import 'package:expenses_app/utils/math_operations.dart' as op;
 
 class ChartPie extends StatefulWidget {
-  ChartPie({Key key}) : super(key: key);
+  final bool isFlayer;
+  ChartPie(
+    {
+      Key key,
+      @required this.isFlayer
+    }
+  ) : super(key: key);
 
   @override
   _ChartPieState createState() => _ChartPieState();
@@ -40,6 +46,8 @@ class _ChartPieState extends State<ChartPie> {
     final expenses = exProvider.expenses;
     final features = exProvider.features;
     List<CombinedModel> cList = [];
+    List<CombinedModel> limitList = [];
+    double totalOthers;
 
     expenses.forEach((x){
       features.forEach((y) { 
@@ -62,6 +70,41 @@ class _ChartPieState extends State<ChartPie> {
     var unique = encode.toSet().toList();
     var result = unique.map((e) => jsonDecode(e)).toList();
     cList = result.map((e) => CombinedModel.fromJson(e)).toList();
+
+    if (cList.length >= 6){
+      totalOthers = cList.sublist(5).map((e) => 
+        e.expense).fold(0.0, (a, b) => a + b);
+      
+      limitList = cList.sublist(0,5);
+      limitList.add(CombinedModel(
+        category: 'Otros',
+        expense: totalOthers,
+        icon: 'otros',
+        color: '#5d7ba3'
+      ));
+    } else {
+      limitList = cList;
+    }
+
+    List<charts.Series<CombinedModel, String>> _seriesLimit(int touchIndex){
+      return [
+        charts.Series<CombinedModel, String>(
+          id: 'PieChart',
+          domainFn: (v, i) => v.category,
+          measureFn: (v, i) => v.expense,
+          keyFn: (v, i) => v.icon,
+          colorFn: (v, i) {
+           var onTap = i == touchIndex; 
+           if(onTap == false){
+             return charts.ColorUtil.fromDartColor(v.color.toColor());
+           } else {
+             return charts.ColorUtil.fromDartColor(v.color.toColor()).darker;
+           }
+          },
+          data: limitList
+        )
+      ];
+    }
 
     List<charts.Series<CombinedModel, String>> _seriesPie(int touchIndex){
       return [
@@ -108,14 +151,19 @@ class _ChartPieState extends State<ChartPie> {
       alignment: AlignmentDirectional.center,
       children: [
         charts.PieChart(
-          _seriesPie(touchIndex),
+          (widget.isFlayer)
+          ? _seriesLimit(touchIndex)
+          : _seriesPie(touchIndex),
           animate: animated,
           animationDuration: Duration(milliseconds: 800),
           defaultInteractions: true,
           defaultRenderer: charts.ArcRendererConfig(
             arcWidth: 30,
             strokeWidthPx: 0.0,
-            arcRendererDecorators: [
+            arcRendererDecorators: 
+            (widget.isFlayer)
+            ? []
+            : [
               charts.ArcLabelDecorator(
                 labelPosition: charts.ArcLabelPosition.outside,
                 showLeaderLines: true,
@@ -170,13 +218,21 @@ class _ChartPieState extends State<ChartPie> {
             Icon(
               _icon.toIcons(),
               color: categoryColor.toColor(),
-              size: 28.0,
+              size: (widget.isFlayer) 
+              ? (_icon == '') ? 0.0 : 20.0 
+              : (_icon == '') ? 0.0 : 28.0,
             ),
             Text(
-              categoryName
+              categoryName,
+              style: TextStyle(
+                fontSize: (widget.isFlayer) ? 10.0 : 14.0
+              ),
             ),
             Text(
-              '\$${op.getCleanData(_amount)}'
+              '\$${op.getCleanData(_amount)}',
+              style: TextStyle(
+                fontSize: (widget.isFlayer) ? 12.0 : 14.0
+              ),
             )
           ],
         )

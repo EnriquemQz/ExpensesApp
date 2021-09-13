@@ -1,4 +1,6 @@
 
+import 'package:expenses_app/providers/ui_provider.dart';
+import 'package:expenses_app/widgets/global_wt/chart_pie.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
@@ -16,6 +18,7 @@ class CategoriesFlayer extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     final exProvider = Provider.of<ExpensesProvider>(context);
+    final uiProvier = Provider.of<UiProvider>(context, listen: false);
     final features = exProvider.features;
     final expenses = exProvider.expenses;
 
@@ -60,8 +63,6 @@ class CategoriesFlayer extends StatelessWidget {
       );
     }
 
-    
-    
     return Padding(
       padding: const EdgeInsets.only(left: 14.0, right: 14.0, bottom: 14.0),
       child: Column(
@@ -85,9 +86,10 @@ class CategoriesFlayer extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: ListView.builder(
                         shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: (limit5) ? limitList.length : cList.length,
                         itemBuilder: (_, i){
                           var item = cList[i];
@@ -122,17 +124,19 @@ class CategoriesFlayer extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Image(
-                          image: AssetImage('assets/pie.png')
-                        ),
+                      flex: 3,
+                      child: Container(
+                        height: 200,
+                        child: ChartPie(isFlayer: true)
                       )  
                     )
                   ],
                 ),
                 GestureDetector(
+                  onTap: (){
+                    uiProvier.selectedMenu = 1;
+                    uiProvier.selectedChart = 'Gráfico Circular';
+                  },
                   child: Align(
                     alignment: Alignment.centerRight,
                     widthFactor: 4.8,

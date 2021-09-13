@@ -17,7 +17,7 @@ class SwitchCharts extends StatelessWidget {
       case 'Gráfico Lineal' :
         return ChartLine();
       case 'Gráfico Circular' :
-        return ChartPie();
+        return ChartPie(isFlayer: false);
       case 'Gráfico de dispersión' :
         return ChartScatterPlot();
       default : 
