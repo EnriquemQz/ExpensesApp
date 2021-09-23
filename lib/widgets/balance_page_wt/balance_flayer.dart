@@ -52,7 +52,7 @@ class BalanceFlayer extends StatelessWidget {
                 indent: 15.0,
                 endIndent: 15.0,
                 thickness: 2.0,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               ListTile(
                 dense: true,

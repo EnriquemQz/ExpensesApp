@@ -1,5 +1,7 @@
 import 'package:expenses_app/models/combined_model.dart';
 import 'package:expenses_app/providers/expenses_provider.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
+import 'package:expenses_app/utils/constants.dart';
 import 'package:expenses_app/utils/math_operations.dart'as op;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,7 @@ class PerDayList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = UserPrefs();
     final exProvider = Provider.of<ExpensesProvider>(context);
     final expenses = exProvider.expenses;
     List<CombinedModel> _perDayList = [];
@@ -50,10 +53,9 @@ class PerDayList extends StatelessWidget {
             Navigator.pushNamed(context, 'expenses_details', arguments: item.day);
           },
           child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[900],
-              borderRadius: BorderRadius.all(Radius.circular(20.0))
-            ),
+            decoration: (prefs.darkMode)
+              ? DarkMode.gridBoxDecoration
+              : LightMode.gridBoxDecoration,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -67,7 +69,7 @@ class PerDayList extends StatelessWidget {
                   ),
                 ),
 
-                Divider(color: Colors.white),
+                Divider(),
 
                 Container(
                   child: Text(
@@ -78,7 +80,7 @@ class PerDayList extends StatelessWidget {
                   )
                 ),
 
-                Divider(color: Colors.white),
+                Divider(),
 
                 Container(
                   child: Text(

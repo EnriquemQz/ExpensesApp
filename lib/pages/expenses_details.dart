@@ -1,3 +1,4 @@
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -135,6 +136,7 @@ class BodyExpensesDetails extends StatefulWidget {
 class _BodyExpensesDetailsState extends State<BodyExpensesDetails> {
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPrefs();
     final exProvider = Provider.of<ExpensesProvider>(context, listen: false);
     final uiProvider = Provider.of<UiProvider>(context, listen: false);
 
@@ -145,7 +147,9 @@ class _BodyExpensesDetailsState extends State<BodyExpensesDetails> {
       padding: const EdgeInsets.only(top: 18.0),
       child: Container(
         // height: size.height,
-        decoration: Constants.ftBoxDecoration,
+        decoration: (prefs.darkMode)
+          ? DarkMode.ftBoxDecoration
+          : LightMode.ftBoxDecoration,
         child: ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,

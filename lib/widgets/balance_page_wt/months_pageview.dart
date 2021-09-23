@@ -56,7 +56,7 @@ class MonthsPageView extends StatelessWidget {
     final unSelected = TextStyle(
       fontSize: 20.0,
       fontWeight: FontWeight.normal,
-      color: Colors.white30
+      color: Colors.grey[700]
     );
 
     if(position == currentPage){

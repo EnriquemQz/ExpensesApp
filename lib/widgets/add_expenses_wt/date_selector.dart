@@ -1,4 +1,5 @@
 import 'package:expenses_app/models/combined_model.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class DateSelector extends StatefulWidget {
@@ -22,6 +23,7 @@ class DateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = UserPrefs();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Column(
@@ -30,7 +32,11 @@ class DateWidget extends StatelessWidget {
             flex: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: isSelected ? Colors.green : Colors.grey[850],
+                color: isSelected 
+                  ? Colors.green 
+                  : (prefs.darkMode)
+                    ? Colors.grey[800]
+                    : Colors.grey[300],
                 borderRadius: BorderRadius.circular(25.0)
               ),
               child: Center(

@@ -1,4 +1,5 @@
 import 'package:expenses_app/models/feature_model.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/utils/constants.dart';
 import 'package:expenses_app/widgets/add_expenses_wt/add_new_category.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class AdminCategory extends StatefulWidget {
 }
 
 class _AdminCategoryState extends State<AdminCategory> {
+  final prefs = new UserPrefs();
   @override
   Widget build(BuildContext context) {
     final exProvider = Provider.of<ExpensesProvider>(context);
@@ -46,7 +48,9 @@ class _AdminCategoryState extends State<AdminCategory> {
 
   _editCategory(FeatureModel fModel){
     showModalBottomSheet(
-      shape: Constants.bottomSheet,
+      shape: (prefs.darkMode)
+        ? DarkMode.bottomSheet
+        : LightMode.bottomSheet,
       context: context, 
       builder: (_) => AddNewCategory(fModelEdit: fModel)
     );

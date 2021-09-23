@@ -1,5 +1,6 @@
 import 'package:expenses_app/models/combined_model.dart';
 import 'package:expenses_app/providers/expenses_provider.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +13,7 @@ class SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = UserPrefs();
     final exProvider = Provider.of<ExpensesProvider>(context, listen: false);
     final uiProvider = Provider.of<UiProvider>(context, listen: false);
 
@@ -75,10 +77,12 @@ class SaveButton extends StatelessWidget {
         backgroundColor: Colors.green,
         radius: 35.0,
         child: CircleAvatar(
-          backgroundColor: Colors.grey[900],
+          backgroundColor: (prefs.darkMode)
+           ? Colors.grey[850]
+           : Colors.grey[200],
           radius: 34.0,
           child: Icon(
-            Icons.done_outline,
+            Icons.done,
             size: 45.0,
             color: Colors.green,
           ),

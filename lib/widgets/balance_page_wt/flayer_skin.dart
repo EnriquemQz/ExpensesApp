@@ -1,3 +1,4 @@
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class FlayerSkin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPrefs();
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.only(left: 14.0, right: 14.0, bottom: 14.0),
@@ -32,7 +34,9 @@ class FlayerSkin extends StatelessWidget {
           Container(
             width: size.width,
             padding: EdgeInsets.all(16.0),
-            decoration: Constants.flayer,
+            decoration: (prefs.darkMode)
+              ? DarkMode.flayer
+              : LightMode.flayer,
             child: myWidget,
           )
         ]

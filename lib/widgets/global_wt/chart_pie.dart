@@ -1,3 +1,4 @@
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
@@ -42,6 +43,7 @@ class _ChartPieState extends State<ChartPie> {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = UserPrefs();
     final exProvider = Provider.of<ExpensesProvider>(context);
     final expenses = exProvider.expenses;
     final features = exProvider.features;
@@ -130,12 +132,16 @@ class _ChartPieState extends State<ChartPie> {
             if(onTap == false){
               return charts.TextStyleSpec(
                 fontSize: 8,
-                color: charts.MaterialPalette.white
+                color: (prefs.darkMode)
+                  ? charts.MaterialPalette.white
+                  : charts.MaterialPalette.black
               );
             } else {
               return charts.TextStyleSpec(
                 fontSize: 14,
-                color: charts.MaterialPalette.white,
+                color: (prefs.darkMode)
+                  ? charts.MaterialPalette.white
+                  : charts.MaterialPalette.black
               );
             }
           },
@@ -170,7 +176,9 @@ class _ChartPieState extends State<ChartPie> {
                 labelPadding: 2,
                 leaderLineStyleSpec: charts.ArcLabelLeaderLineStyleSpec(
                   length: 12,
-                  color: charts.MaterialPalette.white,
+                  color: (prefs.darkMode)
+                  ? charts.MaterialPalette.white
+                  : charts.MaterialPalette.black,
                   thickness: 1
                 ),
                 // outsideLabelStyleSpec: charts.TextStyleSpec(

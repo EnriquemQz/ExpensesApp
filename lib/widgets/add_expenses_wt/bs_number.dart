@@ -1,4 +1,5 @@
 import 'package:expenses_app/models/combined_model.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class BottomSheetNumber extends StatefulWidget {
 }
 
 class _BottomSheetNumberState extends State<BottomSheetNumber> {
+  final prefs = new UserPrefs();
   RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
   Function mathFunc = (Match match) => '${match[1]},';
 
@@ -79,7 +81,7 @@ class _BottomSheetNumberState extends State<BottomSheetNumber> {
               text,
               style: TextStyle(
                 fontSize: 35.0,
-                color: Colors.white
+                // color: Colors.white
               ),
             ),
           ),
@@ -88,6 +90,9 @@ class _BottomSheetNumberState extends State<BottomSheetNumber> {
     }
 
     showModalBottomSheet(
+      backgroundColor: (prefs.darkMode)
+       ? DarkMode.bsNumberColor
+       : LightMode.bsNumberColor,
       isScrollControlled: true,
       barrierColor: Colors.transparent,
       isDismissible: false,
@@ -148,7 +153,7 @@ class _BottomSheetNumberState extends State<BottomSheetNumber> {
                             child: Center(
                               child: Icon(
                                 Icons.backspace,
-                                color: Colors.white,
+                                // color: Colors.white,
                                 size: 35.0,
                               )
                             ),
@@ -164,7 +169,9 @@ class _BottomSheetNumberState extends State<BottomSheetNumber> {
                         Expanded(
                           flex: 1,
                           child: Container(
-                            decoration: Constants.btnCancel,
+                            decoration: (prefs.darkMode)
+                              ? DarkMode.btnCancel
+                              : LightMode.btnCancel,
                             height: height / 1.8,
                             child: GestureDetector(
                               behavior: HitTestBehavior.opaque,
@@ -188,7 +195,9 @@ class _BottomSheetNumberState extends State<BottomSheetNumber> {
                         Expanded(
                           flex: 1,
                           child: Container(
-                           decoration: Constants.btnOk,
+                           decoration: (prefs.darkMode)
+                            ? DarkMode.btnOk
+                            : LightMode.btnOk,
                            height: height / 1.8,
                            child: GestureDetector(
                              behavior: HitTestBehavior.opaque,

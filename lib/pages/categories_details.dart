@@ -1,3 +1,4 @@
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -151,13 +152,16 @@ class BodyCategoriesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPrefs();
     Size size = MediaQuery.of(context).size;
 
     var totalCList = cList.map((e) => e.expense).fold(0.0,(a,b) => a + b);
 
     return Container(
       height: size.height,
-      decoration: Constants.ftBoxDecoration,
+      decoration: (prefs.darkMode)
+        ? DarkMode.ftBoxDecoration
+        : LightMode.ftBoxDecoration,
       child: ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),

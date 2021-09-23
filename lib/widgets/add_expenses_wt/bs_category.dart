@@ -1,3 +1,4 @@
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/widgets/add_expenses_wt/admin_category.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class BottomSheetCategory extends StatefulWidget {
 
 class _BottomSheetCategoryState extends State<BottomSheetCategory> {
   bool hasData = false;
+  final prefs = new UserPrefs();
   @override
   Widget build(BuildContext context) {
     final exProvider = Provider.of<ExpensesProvider>(context);
@@ -150,7 +152,9 @@ class _BottomSheetCategoryState extends State<BottomSheetCategory> {
   }
   _addNewCategory(){
     showModalBottomSheet(
-      shape: Constants.bottomSheet,
+      shape: (prefs.darkMode)
+        ? DarkMode.bottomSheet
+        : LightMode.bottomSheet,
       context: context, 
       builder: (_) => AddNewCategory()
     );
@@ -158,7 +162,9 @@ class _BottomSheetCategoryState extends State<BottomSheetCategory> {
 
   _adminCategory(){
     showModalBottomSheet(
-      shape: Constants.bottomSheet,
+      shape: (prefs.darkMode)
+        ? DarkMode.bottomSheet
+        : LightMode.bottomSheet,
       context: context, 
       builder: (_) => AdminCategory()
     );

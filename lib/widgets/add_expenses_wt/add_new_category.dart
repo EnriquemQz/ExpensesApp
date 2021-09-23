@@ -1,3 +1,4 @@
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:expenses_app/utils/icon_picker.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class AddNewCategory extends StatefulWidget {
 }
 
 class _AddNewCategoryState extends State<AddNewCategory> {
-
+  final prefs = new UserPrefs();
   FeatureModel fModel = new FeatureModel();
 
   bool fModelHasData = false;
@@ -209,7 +210,9 @@ class _AddNewCategoryState extends State<AddNewCategory> {
                     child: GestureDetector(
                       child: Container(
                         padding: EdgeInsets.all(12.0),
-                        decoration: Constants.btnCancel,
+                        decoration: (prefs.darkMode)
+                         ? DarkMode.btnCancel
+                         : LightMode.btnCancel,
                         child: Center(child: Text('CANCELAR')),
                       ),
                       onTap: (){
@@ -223,7 +226,9 @@ class _AddNewCategoryState extends State<AddNewCategory> {
                     child: GestureDetector(
                       child: Container(
                         padding: EdgeInsets.all(12.0),
-                        decoration: Constants.btnOk,
+                        decoration: (prefs.darkMode)
+                          ? DarkMode.btnOk
+                          : LightMode.btnOk,
                         child: Center(child: Text('LISTO')),
                       ),
                       onTap: (){
@@ -248,7 +253,9 @@ class _AddNewCategoryState extends State<AddNewCategory> {
     }
 
     showModalBottomSheet(
-      shape: Constants.bottomSheet,
+      shape: (prefs.darkMode)
+        ? DarkMode.bottomSheet
+        : LightMode.bottomSheet,
       context: context, 
       builder: (_){
         return Container(
@@ -270,7 +277,9 @@ class _AddNewCategoryState extends State<AddNewCategory> {
                 child: Container(
                   width: 150.0,
                   padding: EdgeInsets.all(12.0),
-                  decoration: Constants.btnOk,
+                  decoration: (prefs.darkMode)
+                    ? DarkMode.btnOk
+                    : LightMode.btnOk,
                   child: Center(
                     child: Text('LISTO')
                   ),
@@ -296,7 +305,9 @@ class _AddNewCategoryState extends State<AddNewCategory> {
     }
 
     showModalBottomSheet(
-      shape: Constants.bottomSheet,
+      shape: (prefs.darkMode)
+        ? DarkMode.bottomSheet
+        : LightMode.bottomSheet,
       context: context, 
       builder: (_){
         return Container(
@@ -311,7 +322,7 @@ class _AddNewCategoryState extends State<AddNewCategory> {
                 child: Icon(
                   key.toIcons(),
                   size: 30.0,
-                  color: Colors.white,
+                  color: (prefs.darkMode) ? Colors.white : Colors.black,
                 ),
                 onTap: (){
                   _changedIcon(key);

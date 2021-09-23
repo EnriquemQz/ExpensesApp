@@ -1,4 +1,5 @@
 import 'package:expenses_app/providers/expenses_provider.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/widgets/balance_page_wt/balance_flayer.dart';
 import 'package:expenses_app/widgets/balance_page_wt/flayer_skin.dart';
 import 'package:expenses_app/widgets/balance_page_wt/movements_flayer.dart';
@@ -15,6 +16,7 @@ class BalanceFolderInside extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPrefs();
     final exProvider = Provider.of<ExpensesProvider>(context);
     final expenses = exProvider.expenses;
     bool hasData = false;
@@ -24,7 +26,9 @@ class BalanceFolderInside extends StatelessWidget {
     }
 
     return Container(
-      decoration: Constants.fiBoxDecoration,
+      decoration: (prefs.darkMode)
+        ? DarkMode.fiBoxDecoration
+        : LightMode.fiBoxDecoration,
       child: (hasData) 
       ?ListView(
         shrinkWrap: true,

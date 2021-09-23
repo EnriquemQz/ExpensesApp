@@ -1,3 +1,4 @@
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/widgets/balance_page_wt/months_pageview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ class BalancePage extends StatelessWidget {
 class _HeadBalancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
+    
     final exProvider = Provider.of<ExpensesProvider>(context);
     final expenses = exProvider.expenses;
 
@@ -62,11 +63,13 @@ class _HeadBalancePage extends StatelessWidget {
 }
 
 class _FolderBalancePage extends StatelessWidget {
-
+  final prefs = new UserPrefs();
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: Constants.ftBoxDecoration,
+      decoration: (prefs.darkMode)
+        ? DarkMode.ftBoxDecoration
+        : LightMode.ftBoxDecoration,
       child: Column(
         children: [
           BalanceFolderTab(),

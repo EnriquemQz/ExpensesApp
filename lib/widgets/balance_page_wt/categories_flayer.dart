@@ -1,4 +1,5 @@
 
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:expenses_app/widgets/global_wt/chart_pie.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class CategoriesFlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPrefs();
     Size size = MediaQuery.of(context).size;
 
     final exProvider = Provider.of<ExpensesProvider>(context);
@@ -80,7 +82,9 @@ class CategoriesFlayer extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.all(16.0),
-            decoration: Constants.flayer,
+            decoration: (prefs.darkMode)
+              ? DarkMode.flayer
+              : LightMode.flayer,
             child: Column(
               children: [
                 Row(

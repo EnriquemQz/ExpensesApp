@@ -1,6 +1,8 @@
 
 
 import 'package:expenses_app/models/combined_model.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
+import 'package:expenses_app/utils/constants.dart';
 import 'package:expenses_app/widgets/add_expenses_wt/bs_category.dart';
 import 'package:expenses_app/widgets/add_expenses_wt/date_selector.dart';
 import 'package:expenses_app/widgets/add_expenses_wt/save_button.dart';
@@ -52,6 +54,7 @@ class _FormOfExpensesState extends State<FormOfExpenses> {
   
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPrefs();
     CombinedModel _cModel = widget.cModel;
     Size size = MediaQuery.of(context).size;
 
@@ -69,13 +72,9 @@ class _FormOfExpensesState extends State<FormOfExpenses> {
         Container(
           padding: EdgeInsets.all(18.0),
           height: size.height,
-          decoration: BoxDecoration(
-            color: Colors.black54,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50.0),
-              topRight: Radius.circular(50.0),
-            )
-          ),
+          decoration: (prefs.darkMode)
+            ? DarkMode.ftBoxDecoration
+            : LightMode.ftBoxDecoration,
           child: Column(
             children: [
               DateSelector(cModel: _cModel),

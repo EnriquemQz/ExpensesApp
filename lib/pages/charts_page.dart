@@ -1,16 +1,14 @@
 
 import 'package:expenses_app/providers/expenses_provider.dart';
+import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
+import 'package:expenses_app/utils/constants.dart';
 import 'package:expenses_app/widgets/charts_page_wt/chart_selector.dart';
 import 'package:expenses_app/widgets/charts_page_wt/per_category_list.dart';
 import 'package:expenses_app/widgets/charts_page_wt/per_day_list.dart';
 import 'package:expenses_app/widgets/charts_page_wt/switch_charts.dart';
-import 'package:expenses_app/widgets/global_wt/chart_line.dart';
-import 'package:expenses_app/widgets/global_wt/chart_pie.dart';
-import 'package:expenses_app/widgets/global_wt/chart_scatterplot.dart';
 import 'package:flutter/material.dart';
 
-import 'package:expenses_app/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class ChartsPage extends StatelessWidget {
@@ -65,6 +63,7 @@ class ChartsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prefs = new UserPrefs();
     final size = MediaQuery.of(context).size;
     final exProvider = Provider.of<ExpensesProvider>(context);
     final expenses = exProvider.expenses.length;
@@ -83,7 +82,9 @@ class ChartsBody extends StatelessWidget {
     return Container(
       height: (_height) ? null : size.height / 2,
       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-      decoration: Constants.ftBoxDecoration,
+      decoration: (prefs.darkMode)
+        ? DarkMode.ftBoxDecoration
+        : LightMode.ftBoxDecoration,
       child: (_isPerDay) ? PerDayList() : PerCategoryList()
     );
   }
