@@ -1,8 +1,10 @@
+import 'package:expenses_app/providers/local_notification_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:expenses_app/pages/categories_details.dart';
 import 'package:expenses_app/providers/shared_preferences.dart';
 import 'package:expenses_app/providers/theme_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:expenses_app/pages/home_page.dart';
@@ -23,6 +25,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => UiProvider()),
         ChangeNotifierProvider(create: (_) => ExpensesProvider()),
+        ChangeNotifierProvider(create: (_) => LocalNotificationProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider(prefs.darkMode))
       ],
       child: MyApp(),

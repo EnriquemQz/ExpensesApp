@@ -39,6 +39,10 @@ dependencies:
   flutter_slidable: ^0.6.0
   percent_indicator: ^3.0.1
   shared_preferences: ^2.0.8
+  flutter_time_picker_spinner: ^2.0.0
+  flutter_local_notifications: ^8.2.0
+  timezone: ^0.8.0
+  flutter_native_timezone: ^2.0.0
   charts_flutter:
     git:
       url: git://github.com/google/charts.git

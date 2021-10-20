@@ -1,14 +1,31 @@
 
+import 'package:expenses_app/providers/local_notification_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:expenses_app/pages/balance_page.dart';
 import 'package:expenses_app/pages/charts_page.dart';
 import 'package:expenses_app/pages/setting_page.dart';
 import 'package:expenses_app/providers/expenses_provider.dart';
 import 'package:expenses_app/providers/ui_provider.dart';
 import 'package:expenses_app/widgets/home_page_wt/bottom_nav_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
-class HomePage extends StatelessWidget {
+
+class HomePage extends StatefulWidget{
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    tz.initializeTimeZones();
+    Provider.of<LocalNotificationProvider>(context, listen: false).initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

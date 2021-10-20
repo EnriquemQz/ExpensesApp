@@ -1,4 +1,6 @@
+import 'package:expenses_app/widgets/setting_page_wt/cancel_notif.dart';
 import 'package:expenses_app/widgets/setting_page_wt/dark_mode.dart';
+import 'package:expenses_app/widgets/setting_page_wt/time_picker.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatelessWidget {
@@ -11,7 +13,11 @@ class SettingPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          DarkMode()
+          DarkMode(),
+          Divider(thickness: 2),
+          CancelNotif(),
+          TimePicker(),
+          Divider(thickness: 2),
         ],
       )
     );
